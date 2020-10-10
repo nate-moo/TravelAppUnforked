@@ -1,11 +1,11 @@
-
-
 //This function is called when the user submits their earch request.
 // This is where you handle what happens when the usr searches
 document.getElementById("search").addEventListener("submit", function (event) {
   //Gets the value of the users input
+  document.getElementById("infoP").innerText = "";
+  document.getElementById("errorMessage").innerText = "";
   let input = document.getElementById("destination").value;
-   
+
   //------------------------------------------------------------------------
   //TASK 1
   //error checking on user input
@@ -21,7 +21,7 @@ document.getElementById("search").addEventListener("submit", function (event) {
 
 // This function retreieves data from the database contained in the local
 // database.json file. You can then call functions inside this.
-function readFile() {
+function readFile(input) {
   const fs = require("fs");
   fs.readFile("src/database.json", "utf8", (err, jsonString) => {
     //error checkign to make sure that the database is read correctly
@@ -36,13 +36,37 @@ function readFile() {
     try {
       // create an array of objects which will be each country
       var countries = JSON.parse(jsonString);
+      //console.log(input);
       //loop through each country
+
       countries.forEach(function (country) {
+        //console.log(country);
+        //match name is matching the country database names to the input name.
+        //console.log(matchName(input, country));
+        //let matchname = matchName(input, country);
+        if (input.toLowerCase() === country.name.toLowerCase()) {
+          //console.log(country.name);
+          //printing out the information to the website
+
+          document.getElementById("infoP").innerText =
+            "The country name is:" +
+            country.name +
+            "\n" +
+            "The Country code is: " +
+            country.code +
+            "\n" +
+            "The price is: " +
+            country.price;
+        }
         //------------------------------------------------------------------------
         // TASK 2 and 3
         // you may want to create a seperate function and simply call that function here
         //------------------------------------------------------------------------
       });
+      if (document.getElementById("infoP").innerText === "") {
+        document.getElementById("errorMessage").innerText =
+          "The country could not be found. Please search again!";
+      }
     } catch (err) {
       console.log("Error parsing JSON string:", err);
     }
@@ -109,7 +133,7 @@ function levenshtein(a, b) {
   // Fill in the rest of the matrix
   for (i = 1; i <= b.length; i++) {
     for (j = 1; j <= a.length; j++) {
-      if (b.charAt(i - 1) == a.charAt(j - 1)) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
         matrix[i][j] = matrix[i - 1][j - 1];
       } else {
         matrix[i][j] = Math.min(

@@ -35,7 +35,7 @@
 
   <body>
 			
-			<script src="src/index.js"></script>
+		
     <!-- Navbar (sit on top) -->
     <div class="w3-top">
       <div
@@ -81,7 +81,6 @@
 			</div>
 			
 		</div>
-
       <!-- Search Section -->
       <!-- This section allows users to search for different cities and retrieve data. -->
       <div class="w3-container w3-padding-64" id="destinations">
@@ -92,8 +91,16 @@
 				<!--form action="/action_page.php"  method="post" onsubmit="return myFunction();"-->
 				
 		
+        <div id="error">
+          <h3 style="background-color:red; color: white;" id="errorMessage"></h1>
+        </div>
 
-        <form id="search" >
+        <div id="info">
+          <p id="infoP">
+          <p>
+        </div>
+
+        <form id="search">
           <p>
             <input
               class="w3-input w3-padding-16"
@@ -114,5 +121,6 @@
 
       <!-- End page content -->
     </div>
+    <script src="src/index.js"></script>
   </body>
 </html>
